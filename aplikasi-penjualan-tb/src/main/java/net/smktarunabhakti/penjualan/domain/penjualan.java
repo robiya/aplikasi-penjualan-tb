@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.smktarunabhakti.penjualan.domain;
 
 import java.io.Serializable;
@@ -9,44 +5,61 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
  *
- * @author DELL
+ *
  */
-public class penjualan implements Serializable {
+@Entity
+@Table(name = "trx_jual_header")
+public class Penjualan implements Serializable {
+
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy="uuid")
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     private String id;
-    
-    @Column(name="waktu_transaksi")
+
+    @NotNull
+    @Column(name = "waktu_transaksi", nullable = false)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date tgl;
-    
-    @Column(nullable=false)
+
+    @NotNull
+    @Column(nullable = false)
     private String kasir;
-    
-    @Column(name="no_struk", nullable=false)
+
+    @NotNull
+    @Column(name = "no_struk", nullable = false)
     private String noStruk;
-    
-    @ManyToMany(mappedBy="header")
-    @Cascade(value= CascadeType.ALL)
-    private List<PenjualanDetail>listPenjualanDetail= new ArrayList<PenjualanDetail>();
-    
+
+    @OneToMany(mappedBy = "header")
+    @Cascade(value = CascadeType.ALL)
+    private List<PenjualanDetail> listPenjualanDetail = new ArrayList<PenjualanDetail>();
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Date getTgl() {
+        return tgl;
+    }
+
+    public void setTgl(Date tgl) {
+        this.tgl = tgl;
     }
 
     public String getKasir() {
@@ -65,11 +78,12 @@ public class penjualan implements Serializable {
         this.noStruk = noStruk;
     }
 
-    public Date getTgl() {
-        return tgl;
+    public List<PenjualanDetail> getListPenjualanDetail() {
+        return listPenjualanDetail;
     }
 
-    public void setTgl(Date tgl) {
-        this.tgl = tgl;
+    public void setListPenjualanDetail(List<PenjualanDetail> listPenjualanDetail) {
+        this.listPenjualanDetail = listPenjualanDetail;
     }
+
 }
