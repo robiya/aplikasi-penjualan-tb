@@ -24,7 +24,7 @@ public class PenjualanDetail implements Serializable{
     private String id;
 
     @ManyToOne
-    private Penjualan header;
+    private penjualan header;
 
     @ManyToOne
     private Barang barang;
@@ -43,11 +43,11 @@ public class PenjualanDetail implements Serializable{
         this.id = id;
     }
 
-    public Penjualan getHeader() {
+    public penjualan getHeader() {
         return header;
     }
 
-    public void setHeader(Penjualan header) {
+    public void setHeader(penjualan header) {
         this.header = header;
     }
 
